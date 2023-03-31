@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+
+                <strong> Message:</strong>{{ message }}
+            </div>
+{% endfor %}
+<div class="body">
+        <div class="origin">
+
+                <table  class="table table-borderless">
+                    <tr>
+                        <td >
+                            <label for="name"  class="form-label">First Name :</label>
+                        </td>
+                        <td><span >{{user.first_name}} {{user.last_name}}</span></td>
+
+                    </tr>
+                    <tr>
+                        <td >
+                            <label for="email" class="form-label">email :</label>
+                        </td>
+                        <td><span>{{user.email}}</span></td>
+                    </tr>
+
+                    <tr>
+                        <td >
+                            <label for="email" class="form-label">date of birth :</label>
+                        </td>
+                        <td><span>{{user.dob}}</span></td>
+                    </tr>
+                <tr ><td ><label for="password" class="form-label">phone no :</label>
+                </td>
+                    <td><span>{{user.mobile}}</span></td>
+                </tr>
+
+
+                <tr><td  class="submit-btn">
+                    <a href="{% url 'changepassword' %}"><button class="btn btn-link" >change password</button> </a>
+                </td>
+                    <td  class="submit-btn">
+                    <a href="{% url 'passwords' %}"><button class="btn btn-link" >add password</button> </a>
+                </td>
+                </tr>
+                    <tr><td colspan="2" class="submit-btn">
+
+                    <a href="{% url 'signout' %}"> <button class="btn btn-primary">signout</button> </a>
+                </td></tr>
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+{% if passwords %}
+
+
+
+<div class="body">
+        <div class="origin">
+
+                <input type="number" name="noofpwds" value={{no}} disabled hidden>
+                <table  class="table table-borderless" id="tab" cellspacing="1000px"><h1>your passwords </h1>
+
+
+
+                    <div class="parent">
+
+                    {% for pwd in passwords %}
+
+  <div>
+    <input type="text" class="span"value={{pwd.field}} readonly>
+      <input type="password" placeholder="type old password" value={{pwd.pwd}} id="pwd{{forloop.counter}}" class="input" required>
+    <button class="btn btn-primary btn-sm" onclick="showHide('pwd{{forloop.counter}}', 'btn{{forloop.counter}}')" id="btn{{forloop.counter}}">show password</button>
+
+  </div>
+
+                        {% endfor %}
+                        <script>
+
+                        function showHide(pwdId, btnId)
+                        {
+                        var showText=document.getElementById(btnId);
+                        var input=document.getElementById(pwdId);
+                        if (input.getAttribute("type") === "password") {
+                            input.setAttribute("type", "text");
+                            showText.innerText = "hide password";
+                          } else {
+                            input.setAttribute("type", "password");
+                            showText.innerText = "show password";
+                          }
+                          }
+                        </script>
+                    </div>
+
+                <tr class="submit-btn">
+                        <td >
+                            <a href="{% url 'updatepwd' %}" ><button class="btn btn-primary"  type="submit">update password</button></a>
+                        </td>
+
+                    </tr>
+            </table>
+
+            {{passwords.pwd}}
+
+        </div>
+
+
+    </div>
+
+
+
+{% endif %}
+
+
+{% endblock %}

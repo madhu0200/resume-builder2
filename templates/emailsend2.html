@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+
+                <strong> Message:</strong>{{ message }}
+            </div>
+{% endfor %}
+   <div class="body">
+        <div class="origin">
+            <form action="{% url 'updatepassword' %}" method="get"> <h1>otp verification</h1>
+                <table  class="table table-borderless">
+                    <tr>
+                    </tr>
+                        <tr>
+                        <td colspan="2">
+                            <label for="email" class="form-label">email</label>
+                            <input type="email" name="email"id="email"  class="form-control" readonly value={{email}}>
+                        </td>
+                    </tr>
+                <tr><td colspan="2"><label for="otp" class="form-label">otp</label>
+                <input type="number" id="password" name="otp" class="form-control"></td></tr>
+                <tr><td colspan="2" class="submit-btn">
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </td></tr>
+            </table>
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock %}
